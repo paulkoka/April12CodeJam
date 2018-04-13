@@ -28,7 +28,8 @@
     NSArray *usingStringLiterals = @[@"first", @"second", @"third", @"fourth"];
 //    Create mutable array from piviously created NSArray.
     
-    NSMutableArray *mutableFromNSArray= [[NSMutableArray arrayWithArray:usingStringLiterals] autorelease];
+    NSMutableArray *mutableFromNSArray= [[NSMutableArray arrayWithArray:usingStringLiterals]
+                                         autorelease];
         [usingStringLiterals release];
 //    Create an empty array and obtain its first and last element in a safe way.
     NSArray *emptyArray = [[[NSArray alloc] init] autorelease];
@@ -42,7 +43,8 @@
         [arrayOfStringsFromOneTillTwentyMutable addObject:[NSString stringWithFormat:@"%d", i ]];
     }
     
-    NSArray *arrayOfStringsFromOneTillTwenty = [ NSArray arrayWithArray:arrayOfStringsFromOneTillTwentyMutable];
+    NSArray *arrayOfStringsFromOneTillTwenty = [ NSArray arrayWithArray:
+                                                arrayOfStringsFromOneTillTwentyMutable];
 
 //    Get its shallow copy and real deep copy.
     //shallow copy
@@ -122,7 +124,8 @@
         }];
         
         void(^printDictionaryByOrderedKeysBlock)(NSArray*,NSDictionary*)=^(NSArray* array,
-                                                                           NSDictionary* dictionary){
+                                                                           NSDictionary* dictionary)
+    {
             for (NSString *key in array)
             {
                 NSLog(@"%@ = %@", key, [dictionary objectForKey:key]);
@@ -176,7 +179,8 @@
         NSSet* setForTask = [NSSet setWithArray:arrayForNSSetTask];
         
 //      Check what is faster: Create an array of 100 numbers. Check whether number 74 is contained
-//      inside an array. Transform array into NSSet and check whether number 74 is contained inside NSSet.
+//      inside an array. Transform array into NSSet and check whether number 74 is contained inside
+//NSSet.
         NSMutableArray *containsOneHundredNumbers = [NSMutableArray arrayWithCapacity:100];
         for (int i=0; i<100; i++) {
             [containsOneHundredNumbers addObject:[NSNumber numberWithInt:i]];
@@ -198,7 +202,8 @@
         if (testDateArray>testDateSet) {
             NSLog(@"Array is faster");
         } else {
-            NSLog(@"Set is faster %.10f, < %.10f in %.2f times", timeIntervalOfSet, timeIntervalOfArray, timeIntervalOfArray/timeIntervalOfSet);
+            NSLog(@"Set is faster %.10f, < %.10f in %.2f times", timeIntervalOfSet,
+                  timeIntervalOfArray, timeIntervalOfArray/timeIntervalOfSet);
         }
     
     
