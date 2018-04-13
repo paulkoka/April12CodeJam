@@ -95,7 +95,7 @@
             
            return [obj2 compare:obj1];
         }];
-       
+    [arrayOfStringsFromOneTillTwenty release];
        [pool release];
         //[pool dealloc];
     
@@ -155,7 +155,7 @@
         testValue = @"Three";
         testIfInTheDictionaryBlock();
   
-        
+    [dictionaryUsingLiteral release];
     [pool1 release];
 #pragma mark NSSet
     NSAutoreleasePool *pool2 = [[NSAutoreleasePool alloc] init];
@@ -201,11 +201,13 @@
         [(NSSet*)mutableFromNSArray containsObject:[NSNumber numberWithInt:74]];
         NSTimeInterval timeIntervalOfSet= [[NSDate date] timeIntervalSinceDate:testDateSet];
         
-        if (testDateArray>testDateSet) {
-            NSLog(@"Array is faster");
-        } else {
+        if ([testDateArray compare: testDateSet]) {
+            
             NSLog(@"Set is faster %.10f, < %.10f in %.2f times", timeIntervalOfSet,
                   timeIntervalOfArray, timeIntervalOfArray/timeIntervalOfSet);
+        } else {NSLog(@"Array is faster %.10f, < %.10f in %.2f times", timeIntervalOfArray ,
+                      timeIntervalOfSet, timeIntervalOfSet/timeIntervalOfArray);
+            
         }
     
     [pool2 release];
