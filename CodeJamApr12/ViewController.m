@@ -17,34 +17,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //@autoreleasepool{
-  // NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
  
     
 #pragma mark NSArray
 //    Please, find your tasks on NSArray and NSMutableArray bellow:
 //
 //    Create NSArray, containing several strings, using literal declaration.
-    
+
     NSArray *usingStringLiterals = @[@"first", @"second", @"third", @"fourth"];
 //    Create mutable array from piviously created NSArray.
     
-    NSMutableArray *mutableFromNSArray= [[NSMutableArray arrayWithArray:usingStringLiterals]
-                                         autorelease];
-        [usingStringLiterals release];
+    NSMutableArray *mutableFromNSArray= [NSMutableArray arrayWithArray:usingStringLiterals];
+    
 //    Create an empty array and obtain its first and last element in a safe way.
     NSArray *emptyArray = [[[NSArray alloc] init] autorelease];
     [emptyArray firstObject];
     [emptyArray lastObject];
    
 //    Create NSArray, containing strings from 1 to 20:
-
-    NSMutableArray *arrayOfStringsFromOneTillTwentyMutable = [NSMutableArray arrayWithCapacity:20];
+    [mutableFromNSArray removeAllObjects];
     for (int i=1; i<=20; i++) {
-        [arrayOfStringsFromOneTillTwentyMutable addObject:[NSString stringWithFormat:@"%d", i ]];
+        [mutableFromNSArray addObject:[NSString stringWithFormat:@"%d", i ]];
     }
     
     NSArray *arrayOfStringsFromOneTillTwenty = [ NSArray arrayWithArray:
-                                                arrayOfStringsFromOneTillTwentyMutable];
+                                                mutableFromNSArray ];
 
 //    Get its shallow copy and real deep copy.
     //shallow copy
@@ -52,9 +50,9 @@
     // real deep copy
         NSArray *deepCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver
                             archivedDataWithRootObject:arrayOfStringsFromOneTillTwenty]];
-    //TODO
+ 
     
-    
+
 //    Iterate over array and obtain item at index 13. Print an item.
     for (int i=0; i<deepCopy.count; i++) {
             if (i==13) {
@@ -62,7 +60,6 @@
                 break;
         }
     }
-    
 //    Make array mutable. Add two new entries to the end of the array, add an entry to the
         //beginning of the array. Iterate over an array and remove item at index 5.
     arrayOfStringsFromOneTillTwenty = [arrayOfStringsFromOneTillTwenty mutableCopy];
@@ -99,9 +96,11 @@
            return [obj2 compare:obj1];
         }];
        
-   
+       [pool release];
+        //[pool dealloc];
     
 #pragma mark NSDictionary
+    NSAutoreleasePool *pool1 = [[NSAutoreleasePool alloc] init];
 //        Please, find your tasks on NSDictionary and NSMutableDictionary bellow:
 //
 //        Create NSDictionary using literal declaration.
@@ -157,23 +156,23 @@
         testIfInTheDictionaryBlock();
   
         
-        
+    [pool1 release];
 #pragma mark NSSet
+    NSAutoreleasePool *pool2 = [[NSAutoreleasePool alloc] init];
 //        Please, find your tasks on NSSet and NSMutableSet bellow:
 //        Create NSArray, containing 30 objects. Add duplicates to array.
          
         
-        NSMutableArray *tempNSMutableArray = [NSMutableArray arrayWithCapacity:30];
+        mutableFromNSArray = [NSMutableArray arrayWithCapacity:30];
         for (int i=0; i<30; i++) {
-            [tempNSMutableArray addObject:[NSNumber numberWithInt:i]];
+            [mutableFromNSArray addObject:[NSNumber numberWithInt:i]];
         }
         
-        NSArray *arrayForNSSetTask =  [NSArray arrayWithArray:tempNSMutableArray];
+
       
-        [tempNSMutableArray addObjectsFromArray:tempNSMutableArray ];
-        
-        arrayForNSSetTask=  [NSArray arrayWithArray:tempNSMutableArray];
-        
+        [mutableFromNSArray addObjectsFromArray:mutableFromNSArray ];
+        NSArray *arrayForNSSetTask =  [NSArray arrayWithArray:mutableFromNSArray];
+    
         
 
 //      Use NSSet to exclude duplicates from array.
@@ -183,22 +182,23 @@
 //      Check what is faster: Create an array of 100 numbers. Check whether number 74 is contained
 //      inside an array. Transform array into NSSet and check whether number 74 is contained inside
 //NSSet.
-        NSMutableArray *containsOneHundredNumbers = [NSMutableArray arrayWithCapacity:100];
+        [mutableFromNSArray removeAllObjects];
+        mutableFromNSArray = [NSMutableArray arrayWithCapacity:100];
         for (int i=0; i<100; i++) {
-            [containsOneHundredNumbers addObject:[NSNumber numberWithInt:i]];
+            [mutableFromNSArray addObject:[NSNumber numberWithInt:i]];
         }
        
 
         NSDate *testDateArray= [NSDate date];
-        [containsOneHundredNumbers containsObject:[NSNumber numberWithInt:74]];
+        [mutableFromNSArray containsObject:[NSNumber numberWithInt:74]];
         NSTimeInterval timeIntervalOfArray= [[NSDate date] timeIntervalSinceDate:testDateArray];
         
         
         
-        containsOneHundredNumbers = [NSSet setWithArray:containsOneHundredNumbers];
+        mutableFromNSArray = [NSSet setWithArray:mutableFromNSArray];
         
         NSDate *testDateSet= [NSDate date];
-        [(NSSet*)containsOneHundredNumbers containsObject:[NSNumber numberWithInt:74]];
+        [(NSSet*)mutableFromNSArray containsObject:[NSNumber numberWithInt:74]];
         NSTimeInterval timeIntervalOfSet= [[NSDate date] timeIntervalSinceDate:testDateSet];
         
         if (testDateArray>testDateSet) {
@@ -208,23 +208,23 @@
                   timeIntervalOfArray, timeIntervalOfArray/timeIntervalOfSet);
         }
     
-    
+    [pool2 release];
 #pragma mark NSPointerArray
-    
+    NSAutoreleasePool *pool3 = [[NSAutoreleasePool alloc] init] ;
     //Please, find your tasks on NSPointerArray bellow:
     
 //    Create pointer array and add 10 objects inside.
     NSPointerArray* pointerArayForTask = [NSPointerArray weakObjectsPointerArray];
-    NSArray *object0=[[NSArray alloc] init];
-    NSArray *object1=[[NSArray alloc] init];
-    NSArray *object2=[[NSArray alloc] init];
-    NSArray *object3=[[NSArray alloc] init];
-    NSArray *object4=[[NSArray alloc] init];
-    NSArray *object5=[[NSArray alloc] init];
-    NSArray *object6=[[NSArray alloc] init];
-    NSArray *object7=[[NSArray alloc] init];
-    NSArray *object8=[[NSArray alloc] init];
-    NSArray *object9=[[NSArray alloc] init];
+    NSArray *object0=[[[NSArray alloc] init] autorelease];
+    NSArray *object1=[[[NSArray alloc] init] autorelease];
+    NSArray *object2=[[[NSArray alloc] init] autorelease];
+    NSArray *object3=[[[NSArray alloc] init] autorelease];
+    NSArray *object4=[[[NSArray alloc] init] autorelease];
+    NSArray *object5=[[[NSArray alloc] init] autorelease];
+    NSArray *object6=[[[NSArray alloc] init] autorelease];
+    NSArray *object7=[[[NSArray alloc] init] autorelease];
+    NSArray *object8=[[[NSArray alloc] init] autorelease];
+    NSArray *object9=[[[NSArray alloc] init] autorelease];
     
     [pointerArayForTask addPointer:object0];
     [pointerArayForTask addPointer:object1];
@@ -249,7 +249,8 @@
     object3=nil;
     
     NSLog(@"Pointer array after nilling of some objects Count = %ld", pointerArayForTask.count);
-        NSLog(@"");
+    [pool3 release];
+    NSLog(@"");
         // Do any additional setup after loading the view, typically from a nib.
     
 
