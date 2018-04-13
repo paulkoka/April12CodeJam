@@ -50,7 +50,8 @@
     //shallow copy
     NSArray *shallowCopy = [NSMutableArray arrayWithArray:arrayOfStringsFromOneTillTwenty];
     // real deep copy
-        NSArray *deepCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:arrayOfStringsFromOneTillTwenty]];
+        NSArray *deepCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver
+                            archivedDataWithRootObject:arrayOfStringsFromOneTillTwenty]];
     //TODO
     
     
@@ -119,7 +120,8 @@
       
 //        Sort it in an ascending and descending order.
 //        ascending
-        NSMutableArray *tempArrayForSortingDictionary = [[dictionaryUsingLiteral allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSMutableArray *tempArrayForSortingDictionary = [[dictionaryUsingLiteral allKeys]
+        sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj1 compare:obj2];
         }];
         
